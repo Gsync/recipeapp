@@ -6,6 +6,9 @@ class RecipeForm extends Component {
     static defaultProps = {
         onClose() {
 
+        },
+        onSave() {
+
         }
     }
     constructor(props) {
@@ -19,6 +22,7 @@ class RecipeForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleNewIngredient = this.handleNewIngredient.bind(this);
         this.handleChangeIngredient = this.handleChangeIngredient.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(e) {
         this.setState({
@@ -33,10 +37,20 @@ class RecipeForm extends Component {
     }
     handleChangeIngredient(e) {
         const index = Number(e.target.name.split('-')[1]);
-        const ingredients = this.state.ingredients.map((ingredient, ind) => (
-            ind === index ? e.target.value : ingredient
+        const ingredients = this.state.ingredients.map((ingredient, idx) => (
+            idx === index ? e.target.value : ingredient
         ));
         this.setState({ ingredients });
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.onSave({...this.state});
+        this.setState({
+            title: "",
+            instructions: "",
+            ingredients: [""],
+            image: ""
+        })
     }
     render() {
         const { title, instructions, ingredients, image } = this.state;
