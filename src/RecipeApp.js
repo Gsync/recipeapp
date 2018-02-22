@@ -34,6 +34,7 @@ class RecipeApp extends Component {
         }
       ],
       nextRecipeId: 3,
+      showForm: false
     };
     this.handleSave = this.handleSave.bind(this);
   }
@@ -41,19 +42,21 @@ class RecipeApp extends Component {
     this.setState((prevState, props) => {
       const newRecipe = {
         ...recipe, 
-        id: this.state.nextRecipeId
+        id: this.state.nextRecipeId,
       };
       return {
         nextRecipeId: prevState.nextRecipeId + 1,
-        recipes: [...this.state.recipes, newRecipe]
+        recipes: [...this.state.recipes, newRecipe],
+        showForm: false
       }
     });
   }
   render() {
+    const {showForm} = this.state;
     return (
       <div className="App">
-        <Navbar />
-        <RecipeForm onSave={this.handleSave} />
+        <Navbar onClickNewRecipe={() => this.setState({showForm: true})} />
+        {showForm ? <RecipeForm onSave={this.handleSave} onClose={() => this.setState({showForm: false})} /> : null}
         <RecipeList recipes={this.state.recipes} />
       </div>
     );
