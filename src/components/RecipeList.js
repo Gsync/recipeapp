@@ -5,12 +5,14 @@ import './RecipeList.css';
 
 class RecipeList extends Component {
     static propTypes = {
-        recipes: PropTypes.arrayOf(PropTypes.object).isRequired
+        recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+        onDelete: PropTypes.func.isRequired,
     }
     render() {
+        const {onDelete} = this.props;
         const recipes = this.props.recipes
             .map((recipe) => (
-                <Recipe key={recipe.id} {...recipe} /> //...recipe is spread operator to include all the props
+                <Recipe key={recipe.id} {...recipe} onDelete={onDelete} /> //...recipe is spread operator to include all the props
             ));
         return (
             <div className="recipe-list">{recipes}</div>
