@@ -6,18 +6,14 @@ import Navbar from './components/Navbar';
 import RecipeList from './components/RecipeList';
 
 
-class RecipeApp extends Component {
-
-  render() {
-    const {showForm, recipes, saveRecipe, deleteRecipe, showForm_, hideForm} = this.props;
-    return (
-      <div className="App">
-        <Navbar onClickNewRecipe={showForm_} />
-        {showForm ? <RecipeForm onSave={saveRecipe} onClose={hideForm} /> : null}
-        <RecipeList onDelete={deleteRecipe} recipes={recipes} />
-      </div>
-    );
-  }
+const RecipeApp = ({showForm, recipes, saveRecipe, deleteRecipe, showForm_, hideForm}) => {
+  return (
+    <div className="App">
+      <Navbar onClickNewRecipe={showForm_} />
+      {showForm ? <RecipeForm onSave={saveRecipe} onClose={hideForm} /> : null}
+      <RecipeList onDelete={deleteRecipe} recipes={recipes} />
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
