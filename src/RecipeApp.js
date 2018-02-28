@@ -23,14 +23,14 @@ class RecipeApp extends Component {
           title: "Banana Cake",
           instructions: "Open Pasta box and boil for 16 minutes, until cooked and serve with sauce",
           ingredients: ["Bananas", "3 cups of water", "Half cup of oil"],
-          image: "images/spaghetti.jpg",
+          image: "images/cake.jpg",
         },
         {
           id: 2,
           title: "Biryani",
           instructions: "Open Pasta box and boil for 16 minutes, until cooked and serve with sauce",
           ingredients: ["Rice", "3 cups of water", "Half cup of oil"],
-          image: "images/spaghetti.jpg",
+          image: "images/biryani.jpg",
         }
       ],
       nextRecipeId: 3,
