@@ -8,7 +8,7 @@ export default (state={}, action) => {
                 showForm: false,
                 recipes: [...state.recipes, newRecipe]
         };
-        case "DELETE_RECEIPE":
+        case "DELETE_RECIPE":
             const recipes = state.recipes.filter(recipe => recipe.id !== action.recipeId)
             return {
                 ...state,
@@ -22,7 +22,7 @@ export default (state={}, action) => {
             case "HIDE_FORM":
             return {
                 ...state,
-                showForm: true
+                showForm: false
 
             };
         default:

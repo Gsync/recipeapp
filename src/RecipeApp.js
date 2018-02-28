@@ -8,32 +8,13 @@ import RecipeList from './components/RecipeList';
 
 class RecipeApp extends Component {
 
-  handleSave(recipe) {
-    this.setState((prevState, props) => {
-      const newRecipe = {
-        ...recipe, 
-        id: this.state.nextRecipeId,
-      };
-      return {
-        nextRecipeId: prevState.nextRecipeId + 1,
-        recipes: [...this.state.recipes, newRecipe],
-        showForm: false
-      }
-    });
-  }
-  onDelete(id) {
-    const recipes = this.state.recipes.filter(recipe => recipe.id !== id);
-    this.setState({
-      recipes
-    });
-  }
   render() {
-    const {showForm, recipes} = this.props;
+    const {showForm, recipes, saveRecipe, deleteRecipe, showForm_, hideForm} = this.props;
     return (
       <div className="App">
-        <Navbar onClickNewRecipe={() => this.setState({showForm: true})} />
-        {showForm ? <RecipeForm onSave={this.handleSave} onClose={() => this.setState({showForm: false})} /> : null}
-        <RecipeList onDelete={this.onDelete} recipes={recipes} />
+        <Navbar onClickNewRecipe={showForm_} />
+        {showForm ? <RecipeForm onSave={saveRecipe} onClose={hideForm} /> : null}
+        <RecipeList onDelete={deleteRecipe} recipes={recipes} />
       </div>
     );
   }
@@ -46,4 +27,31 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, null)(RecipeApp);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveRecipe(recipe) {
+      dispatch({
+        type: "SAVE_RECIPE",
+        recipe
+      })
+    },
+    deleteRecipe(recipeId) {
+      dispatch({
+        type: "DELETE_RECIPE",
+        recipeId
+      })
+    },
+    showForm_() {
+      dispatch({
+        type: "SHOW_FORM"
+      })
+    },
+    hideForm() {
+      dispatch({
+        type: "HIDE_FORM"
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeApp);
